@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>櫻坂46 サイリウムカラー</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f7f7f7;
+      color: #111;
+      padding: 20px;
+      margin: 0;
+      transition: background 0.3s, color 0.3s;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body.dark {
+      background: #111;
+      color: #f5f5f5;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 28px;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    body.dark .note,
+    body.dark #periodInfo {
+      color: #ccc;
+    }
+
+    .search-box {
+      margin: 16px auto 24px;
+      max-width: 420px;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .top-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .period-group {
+      margin-bottom: 24px;
+    }
+
+    .period-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 18px 0 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .member-btn, .action-btn {
+      padding: 10px 14px;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #444;
+      color: white;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+
+    .member-btn {
+      min-width: 110px;
+    }
+
+    .member-btn:hover, .action-btn:hover {
+      opacity: 0.9;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .result {
+      margin-top: 30px;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark .result {
+      background: #1c1c1c;
+      color: #f5f5f5;
+    }
+
+    #captureArea {
+      background: transparent;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    #memberInfo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    #periodInfo {
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
+
+    #colorText {
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    .color-row {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .color-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #555;
+      flex: 0 0 auto;
+    }
+
+    .color-value {
+      font-size: 24px;
+      font-weight: 700;
+      flex: 0 0 auto;
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+
+    body.dark .color-label {
+      color: #ccc;
+    }
+
+    .penlights {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: nowrap;
+      margin-top: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .member-block {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: nowrap;
+      padding: 10px 12px;
+      border-radius: 12px;
+      min-width: fit-content;
+    }
+
+    .member-block-title {
+      width: 100%;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .penlight {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 104px;
+      flex-shrink: 0;
+    }
+
+    .light {
+      width: 48px;
+      height: 140px;
+      border-radius: 22px 22px 10px 10px;
+      border: 2px solid #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 14px rgba(255,255,255,0.7);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .light::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border-radius: 18px 18px 8px 8px;
+      background: rgba(255,255,255,0.18);
+      pointer-events: none;
+    }
+
+    .lightText {
+      writing-mode: vertical-rl;
+      font-weight: bold;
+      font-size: 16px;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 0 4px rgba(0,0,0,0.45);
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .handle {
+      width: 22px;
+      height: 58px;
+      background: #333;
+      border-radius: 0 0 10px 10px;
+      flex-shrink: 0;
+    }
+
+    .label {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      min-height: 22px;
+      white-space: nowrap;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .primary {
+      background: #0b57d0;
+    }
+
+    .secondary {
+      background: #666;
+    }
+
+    .accent {
+      background: #666;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .accent.active {
+      background: #8a2be2;
+      box-shadow: 0 0 0 3px rgba(138,43,226,0.18);
+    }
+
+    #copyMessage {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #0b57d0;
+      min-height: 20px;
+    }
+
+    body.dark #copyMessage {
+      color: #8ab4ff;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      #memberInfo {
+        font-size: 24px;
+      }
+
+      .member-btn, .action-btn {
+        font-size: 14px;
+        padding: 9px 12px;
+      }
+
+      .member-btn {
+        min-width: 92px;
+        font-size: 13px;
+        padding: 8px 10px;
+      }
+
+      .color-row {
+        gap: 8px;
+      }
+
+      .color-label {
+        font-size: 13px;
+      }
+
+      .color-value {
+        font-size: 17px;
+      }
+
+      .penlights {
+        gap: 12px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 6px;
+      }
+
+      .member-block {
+        gap: 10px;
+        padding: 6px 8px;
+        flex-wrap: nowrap;
+      }
+
+      .penlight {
+        min-width: 118px;
+      }
+
+      .light {
+        width: 36px;
+        height: 112px;
+      }
+
+      .handle {
+        width: 18px;
+        height: 48px;
+      }
+
+      .lightText {
+        font-size: 12px;
+      }
+
+      .label {
+        font-size: 11px;
+        min-height: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>櫻坂46 サイリウムカラー</h1>
+  <div class="note">
+    メンバー名をクリックすると、ペンライトカラーを表示します。<br>
+    検索・コピー・画像保存・推し2人モード・ダークモードに対応しています。
+  </div>
+
+  <div class="top-actions">
+    <button type="button" id="twoModeBtn" class="action-btn accent">推し2人モード：OFF</button>
+    <button type="button" id="darkModeBtn" class="action-btn secondary">ダークモード切替</button>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="メンバー名で検索（例：勝又、松田）">
+  </div>
+
+  <div class="period-group" id="group-二期">
+    <div class="period-title">二期</div>
+    <div class="buttons">
+      <button type="button" class="member-btn" data-name="遠藤光莉">遠藤光莉</button>
+      <button type="button" class="member-btn" data-name="大園玲">大園玲</button>
+      <button type="button" class="member-btn" data-name="大沼晶保">大沼晶保</button>
+      <button type="button" class="member-btn" data-name="幸阪茉里乃">幸阪茉里乃</button>
+      <button type="button" class="member-btn" data-name="武元唯衣">武元唯衣</button>
+      <button type="button" class="member-btn" data-name="田村保乃">田村保乃</button>
+      <button type="button" class="member-btn" data-name="藤吉夏鈴">藤吉夏鈴</button>
+      <button type="button" class="member-btn" data-name="増本綺良">増本綺良</button>
+      <button type="button" class="member-btn" data-name="松田里奈">松田里奈</button>
+      <button type="button" class="member-btn" data-name="森田ひかる">森田ひかる</button>
+      <button type="button" class="member-btn" data-name="守屋麗奈">守屋麗奈</button>
+      <button type="button" class="member-btn" data-name="山﨑天">山﨑天</button>
+    </div>
+  </div>
+
+  <div class="period-group" id="group-三期">
+    <div class="period-title">三期</div>
+    <div class="buttons">
+      <button type="button" class="member-btn" data-name="石森璃花">石森璃花</button>
+      <button type="button" class="member-btn" data-name="遠藤理子">遠藤理子</button>
+      <button type="button" class="member-btn" data-name="小田倉麗奈">小田倉麗奈</button>
+      <button type="button" class="member-btn" data-name="小島凪紗">小島凪紗</button>
+      <button type="button" class="member-btn" data-name="谷口愛季">谷口愛季</button>
+      <button type="button" class="member-btn" data-name="中嶋優月">中嶋優月</button>
+      <button type="button" class="member-btn" data-name="的野美青">的野美青</button>
+      <button type="button" class="member-btn" data-name="向井純葉">向井純葉</button>
+      <button type="button" class="member-btn" data-name="村井優">村井優</button>
+      <button type="button" class="member-btn" data-name="村山美羽">村山美羽</button>
+      <button type="button" class="member-btn" data-name="山下瞳月">山下瞳月</button>
+    </div>
+  </div>
+
+  <div class="period-group" id="group-四期">
+    <div class="period-title">四期</div>
+    <div class="buttons">
+      <button type="button" class="member-btn" data-name="浅井恋乃未">浅井恋乃未</button>
+      <button type="button" class="member-btn" data-name="稲熊ひな">稲熊ひな</button>
+      <button type="button" class="member-btn" data-name="勝又春">勝又春</button>
+      <button type="button" class="member-btn" data-name="佐藤愛桜">佐藤愛桜</button>
+      <button type="button" class="member-btn" data-name="中川智尋">中川智尋</button>
+      <button type="button" class="member-btn" data-name="松本和子">松本和子</button>
+      <button type="button" class="member-btn" data-name="目黒陽色">目黒陽色</button>
+      <button type="button" class="member-btn" data-name="山川宇衣">山川宇衣</button>
+      <button type="button" class="member-btn" data-name="山田桃実">山田桃実</button>
+    </div>
+  </div>
+
+  <div class="result">
+    <div id="captureArea">
+      <div id="memberInfo">メンバーを選んでください</div>
+      <div id="periodInfo"></div>
+      <div id="colorText"></div>
+
+      <div class="penlights" id="penlightsArea">
+        <div class="member-block" id="block1">
+          <div class="member-block-title" id="blockTitle1"></div>
+
+          <div class="penlight">
+            <div id="light1" class="light" style="background:#ddd;">
+              <div class="lightText" id="name1"></div>
+            </div>
+            <div class="handle"></div>
+            <div id="label1" class="label"></div>
+          </div>
+
+          <div class="penlight">
+            <div id="light2" class="light" style="background:#ddd;">
+              <div class="lightText" id="name2"></div>
+            </div>
+            <div class="handle"></div>
+            <div id="label2" class="label"></div>
+          </div>
+        </div>
+
+        <div class="member-block hidden" id="block2">
+          <div class="member-block-title" id="blockTitle2"></div>
+
+          <div class="penlight">
+            <div id="light3" class="light" style="background:#ddd;">
+              <div class="lightText" id="name3"></div>
+            </div>
+            <div class="handle"></div>
+            <div id="label3" class="label"></div>
+          </div>
+
+          <div class="penlight">
+            <div id="light4" class="light" style="background:#ddd;">
+              <div class="lightText" id="name4"></div>
+            </div>
+            <div class="handle"></div>
+            <div id="label4" class="label"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" id="copyBtn" class="action-btn primary">テキストをコピー</button>
+      <button type="button" id="saveBtn" class="action-btn secondary">画像として保存</button>
+    </div>
+    <div id="copyMessage"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script>
+    const colorMap = {
+      "①ホワイト": { code: "#ffffff", name: "ホワイト" },
+      "②サクラピンク": { code: "#ffbeca", name: "サクラピンク" },
+      "③グリーン": { code: "#21a940", name: "グリーン" },
+      "④イエロー": { code: "#ffeb34", name: "イエロー" },
+      "⑤レッド": { code: "#ff1f1f", name: "レッド" },
+      "⑥パステルブルー": { code: "#a8d7f4", name: "パステルブルー" },
+      "⑦パープル": { code: "#840084", name: "パープル" },
+      "⑧ピンク": { code: "#ffbcc8", name: "ピンク" },
+      "⑨エメラルドグリーン": { code: "#11c8a9", name: "エメラルドグリーン" },
+      "⑩ライトグリーン": { code: "#ccff66", name: "ライトグリーン" },
+      "⑪バイオレット": { code: "#8723e3", name: "バイオレット" },
+      "⑫パールグリーン": { code: "#99ff99", name: "パールグリーン" },
+      "⑬パッションピンク": { code: "#ff74b9", name: "パッションピンク" },
+      "⑭オレンジ": { code: "#ffa600", name: "オレンジ" },
+      "⑮ブルー": { code: "#117ff4", name: "ブルー" }
+    };
+
+    const members = {
+      "遠藤光莉": { period: "二期", color1: "⑦パープル", color2: "⑦パープル" },
+      "大園玲": { period: "二期", color1: "⑪バイオレット", color2: "⑪バイオレット" },
+      "大沼晶保": { period: "二期", color1: "⑥パステルブルー", color2: "④イエロー" },
+      "幸阪茉里乃": { period: "二期", color1: "⑫パールグリーン", color2: "②サクラピンク" },
+      "武元唯衣": { period: "二期", color1: "⑬パッションピンク", color2: "⑮ブルー" },
+      "田村保乃": { period: "二期", color1: "⑥パステルブルー", color2: "⑥パステルブルー" },
+      "藤吉夏鈴": { period: "二期", color1: "①ホワイト", color2: "⑪バイオレット" },
+      "増本綺良": { period: "二期", color1: "⑭オレンジ", color2: "⑭オレンジ" },
+      "松田里奈": { period: "二期", color1: "③グリーン", color2: "④イエロー" },
+      "森田ひかる": { period: "二期", color1: "⑤レッド", color2: "⑮ブルー" },
+      "守屋麗奈": { period: "二期", color1: "④イエロー", color2: "⑧ピンク" },
+      "山﨑天": { period: "二期", color1: "①ホワイト", color2: "③グリーン" },
+
+      "石森璃花": { period: "三期", color1: "③グリーン", color2: "⑧ピンク" },
+      "遠藤理子": { period: "三期", color1: "②サクラピンク", color2: "⑪バイオレット" },
+      "小田倉麗奈": { period: "三期", color1: "①ホワイト", color2: "⑬パッションピンク" },
+      "小島凪紗": { period: "三期", color1: "⑥パステルブルー", color2: "⑭オレンジ" },
+      "谷口愛季": { period: "三期", color1: "⑤レッド", color2: "⑦パープル" },
+      "中嶋優月": { period: "三期", color1: "⑧ピンク", color2: "⑧ピンク" },
+      "的野美青": { period: "三期", color1: "⑥パステルブルー", color2: "⑮ブルー" },
+      "向井純葉": { period: "三期", color1: "⑥パステルブルー", color2: "⑨エメラルドグリーン" },
+      "村井優": { period: "三期", color1: "⑦パープル", color2: "⑮ブルー" },
+      "村山美羽": { period: "三期", color1: "⑦パープル", color2: "⑪バイオレット" },
+      "山下瞳月": { period: "三期", color1: "⑤レッド", color2: "⑥パステルブルー" },
+
+      "浅井恋乃未": { period: "四期", color1: "⑤レッド", color2: "⑨エメラルドグリーン" },
+      "稲熊ひな": { period: "四期", color1: "⑨エメラルドグリーン", color2: "⑭オレンジ" },
+      "勝又春": { period: "四期", color1: "②サクラピンク", color2: "⑤レッド" },
+      "佐藤愛桜": { period: "四期", color1: "②サクラピンク", color2: "⑥パステルブルー" },
+      "中川智尋": { period: "四期", color1: "④イエロー", color2: "⑪バイオレット" },
+      "松本和子": { period: "四期", color1: "①ホワイト", color2: "⑨エメラルドグリーン" },
+      "目黒陽色": { period: "四期", color1: "②サクラピンク", color2: "⑬パッションピンク" },
+      "山川宇衣": { period: "四期", color1: "①ホワイト", color2: "⑥パステルブルー" },
+      "山田桃実": { period: "四期", color1: "⑥パステルブルー", color2: "⑪バイオレット" }
+    };
+
+    let currentMemberName = "";
+    let twoMode = false;
+    let selectedMembers = [];
+
+    function buildColorRowsSingle(member) {
+      return `
+        <div class="color-row">
+          <span class="color-label">カラー1：</span>
+          <span class="color-value">${member.color1}</span>
+        </div>
+        <div class="color-row">
+          <span class="color-label">カラー2：</span>
+          <span class="color-value">${member.color2}</span>
+        </div>
+      `;
+    }
+
+    function buildColorRowsDouble(name1, m1, name2, m2) {
+      return `
+        <div class="color-row">
+          <span class="color-label">${name1}：</span>
+          <span class="color-value">${m1.color1} / ${m1.color2}</span>
+        </div>
+        <div class="color-row">
+          <span class="color-label">${name2}：</span>
+          <span class="color-value">${m2.color1} / ${m2.color2}</span>
+        </div>
+      `;
+    }
+
+    function handleMemberClick(name) {
+      if (!twoMode) {
+        showMember(name);
+        return;
+      }
+
+      if (selectedMembers.includes(name)) {
+        selectedMembers = selectedMembers.filter(n => n !== name);
+      } else {
+        if (selectedMembers.length >= 2) {
+          selectedMembers.shift();
+        }
+        selectedMembers.push(name);
+      }
+
+      if (selectedMembers.length === 1) {
+        showMember(selectedMembers[0]);
+      } else if (selectedMembers.length === 2) {
+        showTwoMembers(selectedMembers[0], selectedMembers[1]);
+      }
+    }
+
+    function showMember(name) {
+      const member = members[name];
+      const c1 = colorMap[member.color1];
+      const c2 = colorMap[member.color2];
+
+      currentMemberName = name;
+      selectedMembers = [name];
+
+      document.getElementById("memberInfo").textContent = name;
+      document.getElementById("periodInfo").textContent = member.period;
+      document.getElementById("colorText").innerHTML = buildColorRowsSingle(member);
+
+      document.getElementById("block1").classList.remove("hidden");
+      document.getElementById("block2").classList.add("hidden");
+      document.getElementById("blockTitle1").textContent = name;
+
+      document.getElementById("light1").style.background = c1.code;
+      document.getElementById("light2").style.background = c2.code;
+
+      document.getElementById("label1").textContent = member.color1;
+      document.getElementById("label2").textContent = member.color2;
+
+      document.getElementById("name1").textContent = name;
+      document.getElementById("name2").textContent = name;
+
+      document.getElementById("copyMessage").textContent = "";
+    }
+
+    function showTwoMembers(name1, name2) {
+      const m1 = members[name1];
+      const m2 = members[name2];
+      const c1 = colorMap[m1.color1];
+      const c2 = colorMap[m1.color2];
+      const c3 = colorMap[m2.color1];
+      const c4 = colorMap[m2.color2];
+
+      currentMemberName = name1 + "・" + name2;
+
+      document.getElementById("memberInfo").textContent = name1 + " ＆ " + name2;
+      document.getElementById("periodInfo").textContent = m1.period + "・" + m2.period;
+      document.getElementById("colorText").innerHTML = buildColorRowsDouble(name1, m1, name2, m2);
+
+      document.getElementById("block1").classList.remove("hidden");
+      document.getElementById("block2").classList.remove("hidden");
+
+      document.getElementById("blockTitle1").textContent = name1;
+      document.getElementById("blockTitle2").textContent = name2;
+
+      document.getElementById("light1").style.background = c1.code;
+      document.getElementById("light2").style.background = c2.code;
+      document.getElementById("light3").style.background = c3.code;
+      document.getElementById("light4").style.background = c4.code;
+
+      document.getElementById("label1").textContent = m1.color1;
+      document.getElementById("label2").textContent = m1.color2;
+      document.getElementById("label3").textContent = m2.color1;
+      document.getElementById("label4").textContent = m2.color2;
+
+      document.getElementById("name1").textContent = name1;
+      document.getElementById("name2").textContent = name1;
+      document.getElementById("name3").textContent = name2;
+      document.getElementById("name4").textContent = name2;
+
+      document.getElementById("copyMessage").textContent = "";
+    }
+
+    function filterMembers() {
+      const keyword = document.getElementById("searchInput").value.trim();
+      const buttons = document.querySelectorAll(".member-btn");
+      const groups = document.querySelectorAll(".period-group");
+
+      buttons.forEach(button => {
+        const name = button.dataset.name;
+        if (name.includes(keyword)) {
+          button.classList.remove("hidden");
+        } else {
+          button.classList.add("hidden");
+        }
+      });
+
+      groups.forEach(group => {
+        const visibleButtons = group.querySelectorAll(".member-btn:not(.hidden)");
+        if (visibleButtons.length === 0) {
+          group.classList.add("hidden");
+        } else {
+          group.classList.remove("hidden");
+        }
+      });
+    }
+
+    function copyText() {
+      if (!currentMemberName) {
+        document.getElementById("copyMessage").textContent = "先にメンバーを選んでください。";
+        return;
+      }
+
+      let text = "";
+
+      if (selectedMembers.length === 2) {
+        const m1 = members[selectedMembers[0]];
+        const m2 = members[selectedMembers[1]];
+        text =
+          selectedMembers[0] + "（" + m1.period + "） " + m1.color1 + " / " + m1.color2 + "\n" +
+          selectedMembers[1] + "（" + m2.period + "） " + m2.color1 + " / " + m2.color2;
+      } else {
+        const member = members[selectedMembers[0]];
+        text =
+          selectedMembers[0] + "（" + member.period + "）\n" +
+          "カラー1：" + member.color1 + "\n" +
+          "カラー2：" + member.color2;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("copyMessage").textContent = "コピーしました。";
+      }).catch(() => {
+        document.getElementById("copyMessage").textContent = "コピーに失敗しました。";
+      });
+    }
+
+    function saveAsImage() {
+      if (!currentMemberName) {
+        document.getElementById("copyMessage").textContent = "先にメンバーを選んでください。";
+        return;
+      }
+
+      const target = document.getElementById("captureArea");
+
+      html2canvas(target, {
+        backgroundColor: document.body.classList.contains("dark") ? "#1c1c1c" : "#ffffff",
+        scale: 2
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = currentMemberName + "_penlight.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+        document.getElementById("copyMessage").textContent = "画像を保存しました。";
+      }).catch(() => {
+        document.getElementById("copyMessage").textContent = "画像保存に失敗しました。";
+      });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    function updateTwoModeButton() {
+      const btn = document.getElementById("twoModeBtn");
+      if (twoMode) {
+        btn.textContent = "推し2人モード：ON";
+        btn.classList.add("active");
+      } else {
+        btn.textContent = "推し2人モード：OFF";
+        btn.classList.remove("active");
+      }
+    }
+
+    function toggleTwoMode() {
+      twoMode = !twoMode;
+      selectedMembers = [];
+      document.getElementById("block2").classList.add("hidden");
+      document.getElementById("copyMessage").textContent =
+        twoMode ? "推し2人モードON：2人選ぶと4本表示します。" : "推し2人モードOFF";
+      updateTwoModeButton();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".member-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+          handleMemberClick(this.dataset.name);
+        });
+      });
+
+      document.getElementById("searchInput").addEventListener("input", filterMembers);
+      document.getElementById("copyBtn").addEventListener("click", copyText);
+      document.getElementById("saveBtn").addEventListener("click", saveAsImage);
+      document.getElementById("darkModeBtn").addEventListener("click", toggleDarkMode);
+      document.getElementById("twoModeBtn").addEventListener("click", toggleTwoMode);
+
+      updateTwoModeButton();
+    });
+  </script>
+</body>
+</html>
