@@ -2,18 +2,19 @@
 <html lang="ja">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4DCLEJLQ4B"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4DCLEJLQ4B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4DCLEJLQ4B');
+  </script>
 
-  gtag('config', 'G-4DCLEJLQ4B');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>櫻坂46 サイリウムカラー</title>
   <link rel="apple-touch-icon" href="penlight.png">
+
   <style>
     body {
       font-family: sans-serif;
@@ -394,6 +395,7 @@
   <div class="top-actions">
     <button type="button" id="twoModeBtn" class="action-btn accent">推し2人モード：OFF</button>
     <button type="button" id="darkModeBtn" class="action-btn secondary">ダークモード切替</button>
+    <button type="button" id="listBtn" class="action-btn secondary">サイリウムカラー一覧</button>
   </div>
 
   <div class="search-box">
@@ -682,6 +684,39 @@
       document.getElementById("copyMessage").textContent = "";
     }
 
+    function showAllMembers() {
+      let html = "";
+      const periodOrder = ["二期", "三期", "四期"];
+
+      periodOrder.forEach(period => {
+        html += `<div class="color-row" style="margin-top:14px;"><span class="color-value">${period}</span></div>`;
+
+        for (const name in members) {
+          const m = members[name];
+          if (m.period === period) {
+            html += `
+              <div class="color-row">
+                <span class="color-label">${name}</span>
+                <span class="color-value">${m.color1} / ${m.color2}</span>
+              </div>
+            `;
+          }
+        }
+      });
+
+      currentMemberName = "全メンバー";
+      selectedMembers = [];
+
+      document.getElementById("memberInfo").textContent = "全メンバーサイリウムカラー";
+      document.getElementById("periodInfo").textContent = "";
+      document.getElementById("colorText").innerHTML = html;
+
+      document.getElementById("block1").classList.add("hidden");
+      document.getElementById("block2").classList.add("hidden");
+
+      document.getElementById("copyMessage").textContent = "";
+    }
+
     function filterMembers() {
       const keyword = document.getElementById("searchInput").value.trim();
       const buttons = document.querySelectorAll(".member-btn");
@@ -714,7 +749,19 @@
 
       let text = "";
 
-      if (selectedMembers.length === 2) {
+      if (currentMemberName === "全メンバー") {
+        const periodOrder = ["二期", "三期", "四期"];
+        periodOrder.forEach(period => {
+          text += period + "\n";
+          for (const name in members) {
+            const m = members[name];
+            if (m.period === period) {
+              text += name + " " + m.color1 + " / " + m.color2 + "\n";
+            }
+          }
+          text += "\n";
+        });
+      } else if (selectedMembers.length === 2) {
         const m1 = members[selectedMembers[0]];
         const m2 = members[selectedMembers[1]];
         text =
@@ -793,19 +840,21 @@
       document.getElementById("saveBtn").addEventListener("click", saveAsImage);
       document.getElementById("darkModeBtn").addEventListener("click", toggleDarkMode);
       document.getElementById("twoModeBtn").addEventListener("click", toggleTwoMode);
+      document.getElementById("listBtn").addEventListener("click", showAllMembers);
 
       updateTwoModeButton();
     });
   </script>
-<hr style="margin-top:40px">
-<div style="text-align:center;font-size:12px;color:#666;margin-bottom:20px;">
-櫻坂46 サイリウムカラー 非公式ファンツール<br>
-制作：壁の王<br>
-X : https://x.com/bwsheep15<br>
-※公式運営とは関係ありません
-</div>
-<div style="text-align:center;font-size:11px;color:#999;margin-top:10px;">
-Version 1.0 (2026.03.22)
-</div>
+
+  <hr style="margin-top:40px">
+  <div style="text-align:center;font-size:12px;color:#666;margin-bottom:20px;">
+    櫻坂46 サイリウムカラー 非公式ファンツール<br>
+    制作：壁の王<br>
+    X : https://x.com/bwsheep15<br>
+    ※公式運営とは関係ありません
+  </div>
+  <div style="text-align:center;font-size:11px;color:#999;margin-top:10px;">
+    Version 1.0 (2026.03.22)
+  </div>
 </body>
 </html>
