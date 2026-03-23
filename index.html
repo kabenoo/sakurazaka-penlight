@@ -711,7 +711,11 @@
     }
 
     function showMember(name) {
-      gtag('event', 'member_click', { member: name });
+      if (typeof gtag === "function") {
+        gtag("event", "member_click", {
+         member: name
+        });
+      }
       const member = members[name];
       const c1 = colorMap[member.color1];
       const c2 = colorMap[member.color2];
