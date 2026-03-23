@@ -12,7 +12,8 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>櫻坂46 サイリウムカラー</title>
+  <title>櫻坂46 サイリウムカラー確認ツール｜ペンライト色一覧・検索対応</title>
+  <meta name="description" content="櫻坂46メンバーのサイリウムカラーを確認できる非公式ツール。検索・推し2人モード・コピー・画像保存に対応。">
   <link rel="apple-touch-icon" href="penlight.png">
 
   <style>
@@ -710,9 +711,7 @@
     }
 
     function showMember(name) {
-
-      gtag('event','member_click',{member:name});
-
+      gtag('event', 'member_click', { member: name });
       const member = members[name];
       const c1 = colorMap[member.color1];
       const c2 = colorMap[member.color2];
@@ -953,17 +952,44 @@
   </script>
 
   <hr style="margin-top:40px">
-  <div style="text-align:center;font-size:12px;color:#666;margin-bottom:20px;">
-    櫻坂46 サイリウムカラー 非公式ファンツール　制作：壁の王<br>
-    X : https://x.com/bwsheep15　　※公式運営とは関係ありません<br>
-   </div>
-  <div style="text-align:center;font-size:11px;color:#999;margin-top:10px;">
-    Version 1.1 (2026.03.23)<br>
-    <br>
-    更新履歴<br>
-    <br>
-    Version 1.1    ・メンバーのカラー順修正<br>
-    Vwesion 1.0    ・初版<br>
-  </div>
+  <footer style="margin-top:40px;padding:25px 10px 30px;background:#f6f6f6;border-top:1px solid #ddd;font-size:13px;color:#555;text-align:center;">
+
+    <div style="line-height:1.8;">
+      櫻坂46 サイリウムカラー 非公式ファンツール<br>
+      制作：壁の王<br>
+      X : https://x.com/bwsheep15<br>
+      ※公式運営とは関係ありません
+    </div>
+
+    <div style="margin-top:12px;font-size:12px;color:#777;">
+      Version 1.2 (2026.03.23)<br>
+      最終更新：<span id="lastModified"></span>
+    </div>
+
+    <div style="max-width:460px;margin:18px auto 0;padding:12px 16px;background:white;border:1px solid #e3e3e3;border-radius:6px;text-align:left;line-height:1.7;">
+      <b style="font-size:13px;">更新履歴</b><br>
+
+      <div style="margin-top:8px;">
+        <b>Version 1.2</b> ：フッター表示調整、最終更新日表示、Google Analyticsイベント追加、SEO説明文追加
+      </div>
+
+      <div style="margin-top:4px;">
+        <b>Version 1.1</b> ：メンバーのカラー順修正
+      </div>
+
+      <div style="margin-top:4px;">
+        <b>Version 1.0</b> ：初版
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    const d = new Date(document.lastModified);
+    document.getElementById("lastModified").textContent =
+      d.getFullYear() + "." +
+      ("0" + (d.getMonth() + 1)).slice(-2) + "." +
+      ("0" + d.getDate()).slice(-2);
+  </script>
 </body>
 </html>
