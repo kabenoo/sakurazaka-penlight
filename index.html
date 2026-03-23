@@ -32,6 +32,33 @@
       color: #f5f5f5;
     }
 
+    header {
+      background: #fff;
+      color: #111;
+      padding: 14px 20px 10px;
+      margin: -20px -20px 20px;
+      text-align: center;
+      border-bottom: 2px solid #e8c0c8;
+    }
+
+    body.dark header {
+      background: #1a1a1a;
+      color: #f5f5f5;
+      border-bottom-color: #555;
+    }
+
+    header h1 {
+      margin: 0 0 2px;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #111;
+    }
+
+    body.dark header h1 {
+      color: #f5f5f5;
+    }
+
     h1 {
       margin-bottom: 8px;
       font-size: 28px;
@@ -110,6 +137,20 @@
       opacity: 0.9;
     }
 
+    .member-btn.selected {
+      background: #e06080 !important;
+      color: #fff !important;
+      border: none;
+      box-shadow: none;
+    }
+
+    body.dark .member-btn.selected {
+      background: #e06080 !important;
+      color: #fff !important;
+      border: none;
+      box-shadow: none;
+    }
+
     .hidden {
       display: none !important;
     }
@@ -131,26 +172,125 @@
       color: #f5f5f5;
     }
 
+    /* 結果画面 */
     #captureArea {
       background: transparent;
       border-radius: 12px;
       padding: 10px;
     }
 
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .member-photo-area {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .member-photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .member-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 3px solid #e0c0c8;
+      display: block;
+    }
+
+    body.dark .member-photo {
+      border-color: #666;
+    }
+
+    .member-photo-placeholder {
+      background: #ddd;
+    }
+
+    body.dark .member-photo-placeholder {
+      background: #444;
+    }
+
+    .result-name-block {
+      text-align: center;
+    }
+
     #memberInfo {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin: 0 0 4px;
     }
 
     #periodInfo {
-      font-size: 18px;
-      margin-bottom: 18px;
+      font-size: 14px;
+      color: #888;
+      margin: 0;
+      display: inline-block;
+      background: #f4f4f4;
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    body.dark #periodInfo {
+      background: #2a2a2a;
+      color: #aaa;
     }
 
     #colorText {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       line-height: 1.8;
+    }
+
+    .color-section {
+      margin-bottom: 16px;
+    }
+
+    .color-card {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 6px;
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 10px 18px;
+    }
+
+    body.dark .color-card {
+      background: #252525;
+      border-color: #444;
+    }
+
+    .color-card-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .color-card-label {
+      font-size: 12px;
+      color: #888;
+      min-width: 44px;
+    }
+
+    body.dark .color-card-label {
+      color: #999;
+    }
+
+    .color-card-name {
+      font-size: 16px;
+      font-weight: 700;
     }
 
     .color-row {
@@ -182,14 +322,62 @@
       color: #ccc;
     }
 
+    /* ペンライトエリア */
     .penlights {
       display: flex;
       justify-content: center;
       gap: 20px;
-      flex-wrap: nowrap;
-      margin-top: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
       overflow-x: auto;
       padding-bottom: 6px;
+    }
+
+    .penlights.two-mode {
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* 二人モード統合カード */
+    .two-member-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #f5f5f5;
+      border-radius: 14px;
+      padding: 14px 20px 12px;
+      min-width: 200px;
+      gap: 12px;
+    }
+
+    body.dark .two-member-card {
+      background: #222;
+    }
+
+    .two-member-card + .two-member-card {
+      margin-top: 16px;
+    }
+
+    .two-member-card-name {
+      font-size: 17px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    body.dark .two-member-card-name {
+      color: #eee;
+    }
+
+    .two-member-card .color-card {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .two-member-card .penlights-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
     }
 
     .member-block {
@@ -197,23 +385,34 @@
       gap: 14px;
       justify-content: center;
       flex-wrap: nowrap;
-      padding: 10px 12px;
-      border-radius: 12px;
+      padding: 14px 16px 10px;
+      border-radius: 14px;
+      background: #f5f5f5;
       min-width: fit-content;
+    }
+
+    body.dark .member-block {
+      background: #222;
     }
 
     .member-block-title {
       width: 100%;
       font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 6px;
+      font-size: 17px;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #333;
+    }
+
+    body.dark .member-block-title {
+      color: #eee;
     }
 
     .penlight {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 104px;
+      min-width: 80px;
       flex-shrink: 0;
     }
 
@@ -225,7 +424,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 14px rgba(255,255,255,0.7);
+      box-shadow: 0 0 18px rgba(0,0,0,0.12);
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
@@ -246,9 +445,9 @@
     .lightText {
       writing-mode: vertical-rl;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 13px;
       color: rgba(255,255,255,0.92);
-      text-shadow: 0 0 4px rgba(0,0,0,0.45);
+      text-shadow: 0 0 4px rgba(0,0,0,0.6);
       z-index: 1;
       letter-spacing: 1px;
     }
@@ -262,15 +461,20 @@
     }
 
     .label {
-      margin-top: 10px;
-      font-size: 14px;
+      margin-top: 8px;
+      font-size: 13px;
       font-weight: bold;
-      line-height: 1.4;
-      min-height: 22px;
+      line-height: 1.3;
+      min-height: 20px;
       white-space: nowrap;
       text-align: center;
       width: 100%;
       overflow: hidden;
+      color: #555;
+    }
+
+    body.dark .label {
+      color: #bbb;
     }
 
     .actions {
@@ -282,7 +486,7 @@
     }
 
     .primary {
-      background: #0b57d0;
+      background: #e06080;
     }
 
     .secondary {
@@ -302,12 +506,64 @@
     #copyMessage {
       margin-top: 10px;
       font-size: 14px;
-      color: #0b57d0;
+      color: #e06080;
       min-height: 20px;
     }
 
     body.dark #copyMessage {
-      color: #8ab4ff;
+      color: #f090a8;
+    }
+
+    #scrollToResultBtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #e06080;
+      color: white;
+      font-size: 22px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #scrollToResultBtn.visible {
+      display: flex;
+    }
+
+    body.dark #scrollToResultBtn {
+      background: #d04060;
+    }
+
+    .member-photo-wrap {
+      position: relative;
+    }
+
+    .member-photo-label {
+      display: none;
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    #captureArea.capturing .member-photo-label {
+      display: flex;
     }
 
     .list-period-title {
@@ -417,20 +673,25 @@
 
       .penlights {
         gap: 12px;
-        flex-wrap: nowrap;
         overflow-x: auto;
-        justify-content: flex-start;
+        justify-content: center;
         padding-bottom: 6px;
+      }
+
+      .penlights.two-mode {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
       }
 
       .member-block {
         gap: 10px;
-        padding: 6px 8px;
+        padding: 8px 10px;
         flex-wrap: nowrap;
       }
 
       .penlight {
-        min-width: 118px;
+        min-width: 72px;
       }
 
       .light {
@@ -444,12 +705,29 @@
       }
 
       .lightText {
-        font-size: 12px;
+        font-size: 11px;
       }
 
       .label {
         font-size: 11px;
         min-height: 18px;
+      }
+
+      .member-photo {
+        width: 70px;
+        height: 70px;
+      }
+
+      #memberInfo {
+        font-size: 22px;
+      }
+
+      .color-card {
+        padding: 6px 10px;
+      }
+
+      .color-card-name {
+        font-size: 14px;
       }
 
       .list-period-title {
@@ -477,7 +755,9 @@
   </style>
 </head>
 <body>
-  <h1>櫻坂46 サイリウムカラー</h1>
+  <header>
+    <h1>櫻坂46 サイリウムカラー</h1>
+  </header>
   <div class="note">
     メンバー名をクリックすると、ペンライトカラーを表示します。<br>
     検索・コピー・画像保存・推し2人モード・ダークモードに対応しています。
@@ -495,7 +775,7 @@
 
   <div class="period-group" id="group-二期">
     <div class="period-title">二期</div>
-    <div class="buttons">
+    <div class="buttons" id="buttons-二期">
       <button type="button" class="member-btn" data-name="遠藤光莉">遠藤光莉</button>
       <button type="button" class="member-btn" data-name="大園玲">大園玲</button>
       <button type="button" class="member-btn" data-name="大沼晶保">大沼晶保</button>
@@ -513,7 +793,7 @@
 
   <div class="period-group" id="group-三期">
     <div class="period-title">三期</div>
-    <div class="buttons">
+    <div class="buttons" id="buttons-三期">
       <button type="button" class="member-btn" data-name="石森璃花">石森璃花</button>
       <button type="button" class="member-btn" data-name="遠藤理子">遠藤理子</button>
       <button type="button" class="member-btn" data-name="小田倉麗奈">小田倉麗奈</button>
@@ -530,7 +810,7 @@
 
   <div class="period-group" id="group-四期">
     <div class="period-title">四期</div>
-    <div class="buttons">
+    <div class="buttons" id="buttons-四期">
       <button type="button" class="member-btn" data-name="浅井恋乃未">浅井恋乃未</button>
       <button type="button" class="member-btn" data-name="稲熊ひな">稲熊ひな</button>
       <button type="button" class="member-btn" data-name="勝又春">勝又春</button>
@@ -545,8 +825,13 @@
 
   <div class="result">
     <div id="captureArea">
-      <div id="memberInfo">メンバーを選んでください</div>
-      <div id="periodInfo"></div>
+      <div class="result-header">
+        <div id="memberPhotoArea" class="member-photo-area"></div>
+        <div class="result-name-block">
+          <div id="memberInfo">メンバーを選んでください</div>
+          <div id="periodInfo"></div>
+        </div>
+      </div>
       <div id="colorText"></div>
 
       <div class="penlights" id="penlightsArea">
@@ -599,6 +884,8 @@
     <div id="copyMessage"></div>
   </div>
 
+  <button type="button" id="scrollToResultBtn" aria-label="結果へスクロール">↓</button>
+
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
@@ -621,70 +908,98 @@
     };
 
     const members = {
-      "遠藤光莉": { period: "二期", color1: "⑦パープル", color2: "⑦パープル" },
-      "大園玲": { period: "二期", color1: "⑪バイオレット", color2: "⑪バイオレット" },
-      "大沼晶保": { period: "二期", color1: "⑥パステルブルー", color2: "④イエロー" },
-      "幸阪茉里乃": { period: "二期", color1: "⑫パールグリーン", color2: "②サクラピンク" },
-      "武元唯衣": { period: "二期", color1: "⑬パッションピンク", color2: "⑮ブルー" },
-      "田村保乃": { period: "二期", color1: "⑥パステルブルー", color2: "⑥パステルブルー" },
-      "藤吉夏鈴": { period: "二期", color1: "①ホワイト", color2: "⑪バイオレット" },
-      "増本綺良": { period: "二期", color1: "⑭オレンジ", color2: "⑭オレンジ" },
-      "松田里奈": { period: "二期", color1: "③グリーン", color2: "④イエロー" },
-      "森田ひかる": { period: "二期", color1: "⑤レッド", color2: "⑮ブルー" },
-      "守屋麗奈": { period: "二期", color1: "④イエロー", color2: "⑧ピンク" },
-      "山﨑天": { period: "二期", color1: "①ホワイト", color2: "③グリーン" },
+      "遠藤光莉": { period: "二期", color1: "⑦パープル", color2: "⑦パープル", image: "https://sakurazaka46.com/images/14/857/d0120b9769f3d70674079f22bfb93/1000_1000_102400.jpg" },
+      "大園玲": { period: "二期", color1: "⑪バイオレット", color2: "⑪バイオレット", image: "https://sakurazaka46.com/images/14/24b/9ec4f53fd6bdff10e11184718fdc6/1000_1000_102400.jpg" },
+      "大沼晶保": { period: "二期", color1: "⑥パステルブルー", color2: "④イエロー", image: "https://sakurazaka46.com/images/14/12f/8c6160d77812688b7e5f29b89119c/1000_1000_102400.jpg" },
+      "幸阪茉里乃": { period: "二期", color1: "⑫パールグリーン", color2: "②サクラピンク", image: "https://sakurazaka46.com/images/14/2f9/1e452e7822839ea7c313a6f72beca/1000_1000_102400.jpg" },
+      "武元唯衣": { period: "二期", color1: "⑬パッションピンク", color2: "⑮ブルー", image: "https://sakurazaka46.com/images/14/fde/33bda495de83cc021bc791ee1f815/1000_1000_102400.jpg" },
+      "田村保乃": { period: "二期", color1: "⑥パステルブルー", color2: "⑥パステルブルー", image: "https://sakurazaka46.com/images/14/d78/15b07c7fcfa61ee38717e3ead9190/1000_1000_102400.jpg" },
+      "藤吉夏鈴": { period: "二期", color1: "①ホワイト", color2: "⑪バイオレット", image: "https://sakurazaka46.com/images/14/ac8/bdf305ca6fe3150253309e3162b38/1000_1000_102400.jpg" },
+      "増本綺良": { period: "二期", color1: "⑭オレンジ", color2: "⑭オレンジ", image: "https://sakurazaka46.com/images/14/b0b/6c435985fee683a63a4e111d08c66/1000_1000_102400.jpg" },
+      "松田里奈": { period: "二期", color1: "③グリーン", color2: "④イエロー", image: "https://sakurazaka46.com/images/14/751/48de20a8332db5f761ac1277f5e55/1000_1000_102400.jpg" },
+      "森田ひかる": { period: "二期", color1: "⑤レッド", color2: "⑮ブルー", image: "https://sakurazaka46.com/images/14/653/60ba6e0df07c5a0f5dedf11db6186/1000_1000_102400.jpg" },
+      "守屋麗奈": { period: "二期", color1: "④イエロー", color2: "⑧ピンク", image: "https://sakurazaka46.com/images/14/ca6/ea887c53d101dcd1ec2154334e1b1/1000_1000_102400.jpg" },
+      "山﨑天": { period: "二期", color1: "①ホワイト", color2: "③グリーン", image: "https://sakurazaka46.com/images/14/d79/76fa08f7e62c5b15ff4ba200ba199/1000_1000_102400.jpg" },
 
-      "石森璃花": { period: "三期", color1: "⑧ピンク", color2: "③グリーン" },
-      "遠藤理子": { period: "三期", color1: "②サクラピンク", color2: "⑪バイオレット" },
-      "小田倉麗奈": { period: "三期", color1: "⑬パッションピンク", color2: "①ホワイト" },
-      "小島凪紗": { period: "三期", color1: "⑥パステルブルー", color2: "⑭オレンジ" },
-      "谷口愛季": { period: "三期", color1: "⑦パープル", color2: "⑤レッド" },
-      "中嶋優月": { period: "三期", color1: "⑧ピンク", color2: "⑧ピンク" },
-      "的野美青": { period: "三期", color1: "⑮ブルー", color2: "⑥パステルブルー" },
-      "向井純葉": { period: "三期", color1: "⑥パステルブルー", color2: "⑨エメラルドグリーン" },
-      "村井優": { period: "三期", color1: "⑦パープル", color2: "⑮ブルー" },
-      "村山美羽": { period: "三期", color1: "⑪バイオレット", color2: "⑦パープル" },
-      "山下瞳月": { period: "三期", color1: "⑤レッド", color2: "⑥パステルブルー" },
+      "石森璃花": { period: "三期", color1: "⑧ピンク", color2: "③グリーン", image: "https://sakurazaka46.com/images/14/cd8/11c3587bb87a5ddc9e4e63f941bf1/1000_1000_102400.jpg" },
+      "遠藤理子": { period: "三期", color1: "②サクラピンク", color2: "⑪バイオレット", image: "https://sakurazaka46.com/images/14/b22/3713b6987a8e214d6fe5a57854634/1000_1000_102400.jpg" },
+      "小田倉麗奈": { period: "三期", color1: "⑬パッションピンク", color2: "①ホワイト", image: "https://sakurazaka46.com/images/14/263/20608a9c45d8afddc128ae180ab71/1000_1000_102400.jpg" },
+      "小島凪紗": { period: "三期", color1: "⑥パステルブルー", color2: "⑭オレンジ", image: "https://sakurazaka46.com/images/14/44a/4e7a8c8ab86faba15404dffa70f48/1000_1000_102400.jpg" },
+      "谷口愛季": { period: "三期", color1: "⑦パープル", color2: "⑤レッド", image: "https://sakurazaka46.com/images/14/025/cbcd2e8333953131b14d1e1b85ffe/1000_1000_102400.jpg" },
+      "中嶋優月": { period: "三期", color1: "⑧ピンク", color2: "⑧ピンク", image: "https://sakurazaka46.com/images/14/7e9/80345b3421394aac9b2ce72b0c6f5/1000_1000_102400.jpg" },
+      "的野美青": { period: "三期", color1: "⑮ブルー", color2: "⑥パステルブルー", image: "https://sakurazaka46.com/images/14/b8b/bfc2cd7717c347546f5d88dcc5521/1000_1000_102400.jpg" },
+      "向井純葉": { period: "三期", color1: "⑥パステルブルー", color2: "⑨エメラルドグリーン", image: "https://sakurazaka46.com/images/14/e82/320adae04d6b88c9ec11f065b8d9e/1000_1000_102400.jpg" },
+      "村井優": { period: "三期", color1: "⑦パープル", color2: "⑮ブルー", image: "https://sakurazaka46.com/images/14/f66/d3ee063660b09ae19c9ae6faddb3b/1000_1000_102400.jpg" },
+      "村山美羽": { period: "三期", color1: "⑪バイオレット", color2: "⑦パープル", image: "https://sakurazaka46.com/images/14/8cd/9eae10b884ede12c4445a0958b70f/1000_1000_102400.jpg" },
+      "山下瞳月": { period: "三期", color1: "⑤レッド", color2: "⑥パステルブルー", image: "https://sakurazaka46.com/images/14/f38/3108b02a46500ce0d6093234a2dc0/1000_1000_102400.jpg" },
 
-      "浅井恋乃未": { period: "四期", color1: "⑨エメラルドグリーン", color2: "⑤レッド" },
-      "稲熊ひな": { period: "四期", color1: "⑭オレンジ", color2: "⑨エメラルドグリーン" },
-      "勝又春": { period: "四期", color1: "②サクラピンク", color2: "⑤レッド" },
-      "佐藤愛桜": { period: "四期", color1: "②サクラピンク", color2: "⑥パステルブルー" },
-      "中川智尋": { period: "四期", color1: "⑪バイオレット", color2: "④イエロー" },
-      "松本和子": { period: "四期", color1: "①ホワイト", color2: "⑨エメラルドグリーン" },
-      "目黒陽色": { period: "四期", color1: "②サクラピンク", color2: "⑬パッションピンク" },
-      "山川宇衣": { period: "四期", color1: "①ホワイト", color2: "⑥パステルブルー" },
-      "山田桃実": { period: "四期", color1: "⑥パステルブルー", color2: "⑪バイオレット" }
+      "浅井恋乃未": { period: "四期", color1: "⑨エメラルドグリーン", color2: "⑤レッド", image: "https://sakurazaka46.com/images/14/571/5f8ff9c3868beec870183b2d31c3a/1000_1000_102400.jpg" },
+      "稲熊ひな": { period: "四期", color1: "⑭オレンジ", color2: "⑨エメラルドグリーン", image: "https://sakurazaka46.com/images/14/399/dd195ad9a0d52b851a86c1dedbf6c/1000_1000_102400.jpg" },
+      "勝又春": { period: "四期", color1: "②サクラピンク", color2: "⑤レッド", image: "https://sakurazaka46.com/images/14/d1b/9c4d1ed47ac4c11e75c9eb9627a2a/1000_1000_102400.jpg" },
+      "佐藤愛桜": { period: "四期", color1: "②サクラピンク", color2: "⑥パステルブルー", image: "https://sakurazaka46.com/images/14/73f/cb69cae91954986017e139dabeef4/1000_1000_102400.jpg" },
+      "中川智尋": { period: "四期", color1: "⑪バイオレット", color2: "④イエロー", image: "https://sakurazaka46.com/images/14/eeb/7f18c42636b09a6d7d497071a549f/1000_1000_102400.jpg" },
+      "松本和子": { period: "四期", color1: "①ホワイト", color2: "⑨エメラルドグリーン", image: "https://sakurazaka46.com/images/14/ecc/679134dea971e03bce13c7f41f82e/1000_1000_102400.jpg" },
+      "目黒陽色": { period: "四期", color1: "②サクラピンク", color2: "⑬パッションピンク", image: "https://sakurazaka46.com/images/14/343/e99d35233cec8a3d6aeaaf71e598e/1000_1000_102400.jpg" },
+      "山川宇衣": { period: "四期", color1: "①ホワイト", color2: "⑥パステルブルー", image: "https://sakurazaka46.com/images/14/c45/b723790606854ed9be6119727ea7e/1000_1000_102400.jpg" },
+      "山田桃実": { period: "四期", color1: "⑥パステルブルー", color2: "⑪バイオレット", image: "https://sakurazaka46.com/images/14/3f0/982a8a5790f0825271e4224658219/1000_1000_102400.jpg" }
     };
 
     let currentMemberName = "";
     let twoMode = false;
     let selectedMembers = [];
 
-    function buildColorRowsSingle(member) {
-      return `
-        <div class="color-row">
-          <span class="color-label">カラー1：</span>
-          <span class="color-value">${member.color1}</span>
+    function buildColorCardSingle(member) {
+      return `<div class="color-section">
+        <div class="color-card">
+          <div class="color-card-row">
+            <span class="color-card-label">カラー1</span>
+            <span class="color-card-name">${member.color1}</span>
+          </div>
+          <div class="color-card-row">
+            <span class="color-card-label">カラー2</span>
+            <span class="color-card-name">${member.color2}</span>
+          </div>
         </div>
-        <div class="color-row">
-          <span class="color-label">カラー2：</span>
-          <span class="color-value">${member.color2}</span>
-        </div>
-      `;
+      </div>`;
     }
 
-    function buildColorRowsDouble(name1, m1, name2, m2) {
-      return `
-        <div class="color-row">
-          <span class="color-label">${name1}：</span>
-          <span class="color-value">${m1.color1} / ${m1.color2}</span>
-        </div>
-        <div class="color-row">
-          <span class="color-label">${name2}：</span>
-          <span class="color-value">${m2.color1} / ${m2.color2}</span>
-        </div>
-      `;
+    function buildColorCardForMember(m) {
+      return `<div class="color-card">
+          <div class="color-card-row">
+            <span class="color-card-label">カラー1</span>
+            <span class="color-card-name">${m.color1}</span>
+          </div>
+          <div class="color-card-row">
+            <span class="color-card-label">カラー2</span>
+            <span class="color-card-name">${m.color2}</span>
+          </div>
+        </div>`;
+    }
+
+    const lastNameMap = {
+      "遠藤光莉": "遠藤", "大園玲": "大園", "大沼晶保": "大沼", "幸阪茉里乃": "幸阪",
+      "武元唯衣": "武元", "田村保乃": "田村", "藤吉夏鈴": "藤吉", "増本綺良": "増本",
+      "松田里奈": "松田", "森田ひかる": "森田", "守屋麗奈": "守屋", "山﨑天": "山﨑",
+      "石森璃花": "石森", "遠藤理子": "遠藤", "小田倉麗奈": "小田倉", "小島凪紗": "小島",
+      "谷口愛季": "谷口", "中嶋優月": "中嶋", "的野美青": "的野", "向井純葉": "向井",
+      "村井優": "村井", "村山美羽": "村山", "山下瞳月": "山下",
+      "浅井恋乃未": "浅井", "稲熊ひな": "稲熊", "勝又春": "勝又", "佐藤愛桜": "佐藤",
+      "中川智尋": "中川", "松本和子": "松本", "目黒陽色": "目黒", "山川宇衣": "山川",
+      "山田桃実": "山田"
+    };
+
+    function getLastName(name) {
+      return lastNameMap[name] || name;
+    }
+
+    function updateSelectedButtons() {
+      document.querySelectorAll(".member-btn").forEach(btn => {
+        if (selectedMembers.includes(btn.dataset.name)) {
+          btn.classList.add("selected");
+        } else {
+          btn.classList.remove("selected");
+        }
+      });
     }
 
     function handleMemberClick(name) {
@@ -702,6 +1017,8 @@
         selectedMembers.push(name);
       }
 
+      updateSelectedButtons();
+
       if (selectedMembers.length === 1) {
         showMember(selectedMembers[0]);
       } else if (selectedMembers.length === 2) {
@@ -718,26 +1035,62 @@
       const c2 = colorMap[member.color2];
 
       currentMemberName = name;
-      selectedMembers = [name];
+      if (!twoMode) selectedMembers = [name];
+      updateSelectedButtons();
+
+      const photoArea = document.getElementById("memberPhotoArea");
+      const lastName = getLastName(name);
+      if (member.image && member.image !== "https://sakurazaka46.com") {
+        photoArea.innerHTML = `<div class="member-photo-wrap"><img class="member-photo" src="${member.image}" alt="${name}"><span class="member-photo-label">${lastName}</span></div>`;
+      } else {
+        photoArea.innerHTML = `<div class="member-photo-wrap"><div class="member-photo member-photo-placeholder"></div><span class="member-photo-label">${lastName}</span></div>`;
+      }
 
       document.getElementById("memberInfo").textContent = name;
       document.getElementById("periodInfo").textContent = member.period;
-      document.getElementById("colorText").innerHTML = buildColorRowsSingle(member);
+      document.getElementById("colorText").innerHTML = buildColorCardSingle(member);
 
-      document.getElementById("block1").classList.remove("hidden");
-      document.getElementById("block2").classList.add("hidden");
-      document.getElementById("blockTitle1").textContent = name;
-
-      document.getElementById("light1").style.background = c1.code;
-      document.getElementById("light2").style.background = c2.code;
-
-      document.getElementById("label1").textContent = member.color1;
-      document.getElementById("label2").textContent = member.color2;
-
-      document.getElementById("name1").textContent = name;
-      document.getElementById("name2").textContent = name;
+      const penlights = document.getElementById("penlightsArea");
+      penlights.classList.remove("two-mode");
+      penlights.innerHTML = `
+        <div class="member-block" id="block1">
+          <div class="member-block-title" id="blockTitle1"></div>
+          <div class="penlight">
+            <div id="light1" class="light" style="background:${c1.code};">
+              <div class="lightText" id="name1">${name}</div>
+            </div>
+            <div class="handle"></div>
+            <div id="label1" class="label">${member.color1}</div>
+          </div>
+          <div class="penlight">
+            <div id="light2" class="light" style="background:${c2.code};">
+              <div class="lightText" id="name2">${name}</div>
+            </div>
+            <div class="handle"></div>
+            <div id="label2" class="label">${member.color2}</div>
+          </div>
+        </div>
+        <div class="member-block hidden" id="block2">
+          <div class="member-block-title" id="blockTitle2"></div>
+          <div class="penlight">
+            <div id="light3" class="light" style="background:#ddd;">
+              <div class="lightText" id="name3"></div>
+            </div>
+            <div class="handle"></div>
+            <div id="label3" class="label"></div>
+          </div>
+          <div class="penlight">
+            <div id="light4" class="light" style="background:#ddd;">
+              <div class="lightText" id="name4"></div>
+            </div>
+            <div class="handle"></div>
+            <div id="label4" class="label"></div>
+          </div>
+        </div>
+      `;
 
       document.getElementById("copyMessage").textContent = "";
+      updateScrollBtn();
     }
 
     function showTwoMembers(name1, name2) {
@@ -748,34 +1101,76 @@
       const c3 = colorMap[m2.color1];
       const c4 = colorMap[m2.color2];
 
+      const photoArea2 = document.getElementById("memberPhotoArea");
+      const lastName1 = getLastName(name1);
+      const lastName2 = getLastName(name2);
+      let photosHtml = "";
+      if (m1.image && m1.image !== "https://sakurazaka46.com") {
+        photosHtml += `<div class="member-photo-wrap"><img class="member-photo" src="${m1.image}" alt="${name1}"><span class="member-photo-label">${lastName1}</span></div>`;
+      } else {
+        photosHtml += `<div class="member-photo-wrap"><div class="member-photo member-photo-placeholder"></div><span class="member-photo-label">${lastName1}</span></div>`;
+      }
+      if (m2.image && m2.image !== "https://sakurazaka46.com") {
+        photosHtml += `<div class="member-photo-wrap"><img class="member-photo" src="${m2.image}" alt="${name2}"><span class="member-photo-label">${lastName2}</span></div>`;
+      } else {
+        photosHtml += `<div class="member-photo-wrap"><div class="member-photo member-photo-placeholder"></div><span class="member-photo-label">${lastName2}</span></div>`;
+      }
+      photoArea2.innerHTML = photosHtml;
+
       currentMemberName = name1 + "・" + name2;
 
       document.getElementById("memberInfo").textContent = name1 + " ＆ " + name2;
       document.getElementById("periodInfo").textContent = m1.period + "・" + m2.period;
-      document.getElementById("colorText").innerHTML = buildColorRowsDouble(name1, m1, name2, m2);
+      // カラー1人目 → ペンライト1人目 → カラー2人目 → ペンライト2人目 の順に縦並び
+      document.getElementById("colorText").innerHTML = "";
 
-      document.getElementById("block1").classList.remove("hidden");
-      document.getElementById("block2").classList.remove("hidden");
-
-      document.getElementById("blockTitle1").textContent = name1;
-      document.getElementById("blockTitle2").textContent = name2;
-
-      document.getElementById("light1").style.background = c1.code;
-      document.getElementById("light2").style.background = c2.code;
-      document.getElementById("light3").style.background = c3.code;
-      document.getElementById("light4").style.background = c4.code;
-
-      document.getElementById("label1").textContent = m1.color1;
-      document.getElementById("label2").textContent = m1.color2;
-      document.getElementById("label3").textContent = m2.color1;
-      document.getElementById("label4").textContent = m2.color2;
-
-      document.getElementById("name1").textContent = name1;
-      document.getElementById("name2").textContent = name1;
-      document.getElementById("name3").textContent = name2;
-      document.getElementById("name4").textContent = name2;
+      const penlights = document.getElementById("penlightsArea");
+      penlights.classList.add("two-mode");
+      penlights.innerHTML = `
+        <div class="two-member-card">
+          <div class="two-member-card-name">${name1}</div>
+          ${buildColorCardForMember(m1)}
+          <div class="penlights-row">
+            <div class="penlight">
+              <div class="light" style="background:${c1.code};">
+                <div class="lightText">${name1}</div>
+              </div>
+              <div class="handle"></div>
+              <div class="label">${m1.color1}</div>
+            </div>
+            <div class="penlight">
+              <div class="light" style="background:${c2.code};">
+                <div class="lightText">${name1}</div>
+              </div>
+              <div class="handle"></div>
+              <div class="label">${m1.color2}</div>
+            </div>
+          </div>
+        </div>
+        <div class="two-member-card">
+          <div class="two-member-card-name">${name2}</div>
+          ${buildColorCardForMember(m2)}
+          <div class="penlights-row">
+            <div class="penlight">
+              <div class="light" style="background:${c3.code};">
+                <div class="lightText">${name2}</div>
+              </div>
+              <div class="handle"></div>
+              <div class="label">${m2.color1}</div>
+            </div>
+            <div class="penlight">
+              <div class="light" style="background:${c4.code};">
+                <div class="lightText">${name2}</div>
+              </div>
+              <div class="handle"></div>
+              <div class="label">${m2.color2}</div>
+            </div>
+          </div>
+        </div>
+      `;
 
       document.getElementById("copyMessage").textContent = "";
+      updateScrollBtn();
     }
 
     function showAllMembers() {
@@ -812,15 +1207,19 @@
 
       currentMemberName = "全メンバー";
       selectedMembers = [];
+      updateSelectedButtons();
+      document.getElementById("memberPhotoArea").innerHTML = "";
 
       document.getElementById("memberInfo").textContent = "全メンバーサイリウムカラー";
       document.getElementById("periodInfo").textContent = "";
       document.getElementById("colorText").innerHTML = html;
 
-      document.getElementById("block1").classList.add("hidden");
-      document.getElementById("block2").classList.add("hidden");
+      const pa = document.getElementById("penlightsArea");
+      pa.classList.remove("two-mode");
+      pa.innerHTML = "";
 
       document.getElementById("copyMessage").textContent = "";
+      updateScrollBtn();
     }
 
     function filterMembers() {
@@ -895,17 +1294,20 @@
       }
 
       const target = document.getElementById("captureArea");
+      target.classList.add("capturing");
 
       html2canvas(target, {
         backgroundColor: document.body.classList.contains("dark") ? "#1c1c1c" : "#ffffff",
         scale: 2
       }).then(canvas => {
+        target.classList.remove("capturing");
         const link = document.createElement("a");
         link.download = currentMemberName + "_penlight.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
         document.getElementById("copyMessage").textContent = "画像を保存しました。";
       }).catch(() => {
+        target.classList.remove("capturing");
         document.getElementById("copyMessage").textContent = "画像保存に失敗しました。";
       });
     }
@@ -928,10 +1330,24 @@
     function toggleTwoMode() {
       twoMode = !twoMode;
       selectedMembers = [];
-      document.getElementById("block2").classList.add("hidden");
+      updateSelectedButtons();
       document.getElementById("copyMessage").textContent =
         twoMode ? "推し2人モードON：2人選ぶと4本表示します。" : "推し2人モードOFF";
       updateTwoModeButton();
+    }
+
+function isResultVisible() {
+      const rect = document.querySelector(".result").getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+
+    function updateScrollBtn() {
+      const btn = document.getElementById("scrollToResultBtn");
+      if (currentMemberName && !isResultVisible()) {
+        btn.classList.add("visible");
+      } else {
+        btn.classList.remove("visible");
+      }
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -947,6 +1363,12 @@
       document.getElementById("darkModeBtn").addEventListener("click", toggleDarkMode);
       document.getElementById("twoModeBtn").addEventListener("click", toggleTwoMode);
       document.getElementById("listBtn").addEventListener("click", showAllMembers);
+
+      document.getElementById("scrollToResultBtn").addEventListener("click", function () {
+        document.querySelector(".result").scrollIntoView({ behavior: "smooth" });
+      });
+
+      window.addEventListener("scroll", updateScrollBtn, { passive: true });
 
       updateTwoModeButton();
     });
