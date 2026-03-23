@@ -710,6 +710,9 @@
     }
 
     function showMember(name) {
+
+      gtag('event','member_click',{member:name});
+
       const member = members[name];
       const c1 = colorMap[member.color1];
       const c2 = colorMap[member.color2];
@@ -958,6 +961,12 @@
   </div>
   <div style="text-align:center;font-size:11px;color:#999;margin-top:10px;">
     Version 1.1 (2026.03.23)
+
+    更新履歴
+    Version 1.1
+    ・メンバーのカラー順修正
+    Vwesion 1.0
+    ・初版
   </div>
 </body>
 </html>
