@@ -310,6 +310,67 @@
       color: #8ab4ff;
     }
 
+    .list-period-title {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    body.dark .list-period-title {
+      color: #f1f1f1;
+    }
+
+    .list-member-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .list-member-name {
+      min-width: 96px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      text-align: right;
+    }
+
+    body.dark .list-member-name {
+      color: #f1f1f1;
+    }
+
+    .color-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f2f2f2;
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+      border: 1px solid #ddd;
+    }
+
+    body.dark .color-chip {
+      background: #2a2a2a;
+      color: #f1f1f1;
+      border-color: #444;
+    }
+
+    .color-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid #999;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 600px) {
       body {
         padding: 14px;
@@ -381,6 +442,22 @@
       .label {
         font-size: 11px;
         min-height: 18px;
+      }
+
+      .list-member-name {
+        min-width: 72px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .color-chip {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+
+      .color-dot {
+        width: 12px;
+        height: 12px;
       }
     }
   </style>
@@ -689,15 +766,27 @@
       const periodOrder = ["二期", "三期", "四期"];
 
       periodOrder.forEach(period => {
-        html += `<div class="color-row" style="margin-top:14px;"><span class="color-value">${period}</span></div>`;
+        html += `<div class="list-period-title">${period}</div>`;
 
         for (const name in members) {
           const m = members[name];
           if (m.period === period) {
+            const c1 = colorMap[m.color1];
+            const c2 = colorMap[m.color2];
+
             html += `
-              <div class="color-row">
-                <span class="color-label">${name}</span>
-                <span class="color-value">${m.color1} / ${m.color2}</span>
+              <div class="list-member-row">
+                <span class="list-member-name">${name}</span>
+
+                <span class="color-chip">
+                  <span class="color-dot" style="background:${c1.code};"></span>
+                  ${c1.name}
+                </span>
+
+                <span class="color-chip">
+                  <span class="color-dot" style="background:${c2.code};"></span>
+                  ${c2.name}
+                </span>
               </div>
             `;
           }
