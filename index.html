@@ -711,11 +711,16 @@
     }
 
     function showMember(name) {
-      if (typeof gtag === "function") {
+      const memberName = String(name ?? "").trim();
+
+      console.log("member_click:", memberName);
+
+      if (typeof gtag === "function" && memberName) {
         gtag("event", "member_click", {
-         member: name
+          sakurazaka_member_name: memberName
         });
       }
+
       const member = members[name];
       const c1 = colorMap[member.color1];
       const c2 = colorMap[member.color2];
